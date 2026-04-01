@@ -1,0 +1,30 @@
+{
+  "name": "reactlearning",
+  "version": "1.0.0",
+  "description": "This is first react learning by srushti patekar",
+  "scripts": {
+    "start": "parcel index.html",
+    "build":"parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Srushti875/ReactLearning-part-1.git"
+  },
+  "author": "Srushti Patekar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Srushti875/ReactLearning-part-1/issues"
+  },
+  "homepage": "https://github.com/Srushti875/ReactLearning-part-1#readme",
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "browserslist":[
+    "last 2  versions"
+  ]
+}
