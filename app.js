@@ -38,39 +38,243 @@ const Header = () => {
   )
 };
 
-const RestoCard = () => {
+const CDN_URL = "https://res.cloudinary.com/swiggy/image/upload/";
+
+const RestoCard = (props) => {
+  console.log(props);
+
+  const{restoData}=props;
+
+  const{cloudinaryImageId,cuisines,avgRating,costForTwo,deliveryTime,sla}=restoData.info;
   return (
     <div className="rest-card" style={{backgroundColor:"pink"}}>
+      
       <img 
       className="resto-logo"
+      
       alt="resto-logo"
-      src="data:image/jpeg;base64,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"
+      src={CDN_URL+cloudinaryImageId}
        />
-      <h3 className="restoName">Meghana Foods</h3>
-      <h4 className="dishName">Biryani,North Indian,Asian</h4>
-      <h4 className="noOfStars">4.4 stars</h4>
-      <h4 className="timeRequired">38 minutes</h4>
+      <h3>{restoData.info.name}</h3>
+      <h4>{cuisines.join(",")}</h4>
+      <h4>{avgRating}</h4>
+      <h4>₹{costForTwo/100}</h4>
+      <h4>{sla.deliveryTime}minutes</h4>
     </div>
   );
 };
+
+const restoObj = [
+  {
+    info: {
+    id: "123456",
+    name: "Pizza Paradise",
+    cloudinaryImageId:
+      "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/17/6def0f0f-9e6c-45c0-b5e6-05af750f27b5_795906.JPG",
+    locality: "MG Road",
+    areaName: "Central District",
+    costForTwo:40000,
+    costForTwoString: "₹400 for two",
+    cuisines: ["Pizza", "Italian", "Fast Food"],
+    avgRating: 4.3,
+    avgRatingString: "4.3",
+    totalRatingsString: "10K+ ratings",
+    veg: false,
+    sla: {
+      deliveryTime: 30,
+      lastMileTravel: 3.5,
+      slaString: "30 mins",
+    },
+    aggregatedDiscountInfoV3: {
+      header: "50% OFF",
+      subHeader: "UPTO ₹100",
+    },
+  }
+},
+  {
+    info: {
+      id: "234567",
+      name: "Burger Hub",
+      cloudinaryImageId:
+        "RX_THUMBNAIL/IMAGES/VENDOR/2024/6/24/acfcaacc-edf0-4189-8264-d614d312c0ee_740457.JPG",
+      locality: "Park Street",
+      areaName: "Downtown",
+      costForTwo: 30000,
+      cuisines: ["Burgers", "American", "Fast Food"],
+      avgRating: 4.5,
+      totalRatingsString: "15K+ ratings",
+      veg: false,
+      sla: {
+        deliveryTime: 25,
+        lastMileTravel: 2,
+        slaString: "25 mins",
+      },
+      aggregatedDiscountInfoV3: {
+        header: "40% OFF",
+        subHeader: "UPTO ₹80",
+      },
+    },
+  },
+  {
+    info: {
+      id: "345678",
+      name: "Green Bites",
+      cloudinaryImageId: "e0839ff574213e6f35b3899ebf1fc597",
+      locality: "Residency Road",
+      areaName: "South Zone",
+      costForTwo: 25000,
+      cuisines: ["Healthy Food", "Salads", "Vegan"],
+      avgRating: 4.7,
+      totalRatingsString: "8K+ ratings",
+      veg: true,
+      sla: {
+        deliveryTime: 20,
+        lastMileTravel: 1.5,
+        slaString: "20 mins",
+      },
+      aggregatedDiscountInfoV3: {
+        header: "30% OFF",
+        subHeader: "UPTO ₹75",
+      },
+    },
+  },
+  {
+    info: {
+      id: "456789",
+      name: "Spice Kingdom",
+      cloudinaryImageId: "rng/md/carousel/production/indian101",
+      locality: "Brigade Road",
+      areaName: "City Center",
+      costForTwo: 50000,
+      cuisines: ["Indian", "North Indian", "Biryani"],
+      avgRating: 4.2,
+      totalRatingsString: "12K+ ratings",
+      veg: false,
+      sla: {
+        deliveryTime: 35,
+        lastMileTravel: 4,
+        slaString: "35 mins",
+      },
+      aggregatedDiscountInfoV3: {
+        header: "20% OFF",
+        subHeader: "UPTO ₹50",
+      },
+    },
+  },
+  {
+    info: {
+      id: "567890",
+      name: "Chinese Dragon",
+      cloudinaryImageId:
+        "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/18/ba9f1f59-30d5-44de-afad-df6db8471ead_9648.jpg",
+      locality: "Commercial Street",
+      areaName: "East District",
+      costForTwo: 35000,
+      cuisines: ["Chinese", "Asian", "Thai"],
+      avgRating: 4.4,
+      totalRatingsString: "9K+ ratings",
+      veg: false,
+      sla: {
+        deliveryTime: 28,
+        lastMileTravel: 2.8,
+        slaString: "28 mins",
+      },
+      aggregatedDiscountInfoV3: {
+        header: "60% OFF",
+        subHeader: "UPTO ₹120",
+      },
+    },
+  },
+  {
+    info: {
+      id: "678901",
+      name: "Dessert Delight",
+      cloudinaryImageId:
+        "RX_THUMBNAIL/IMAGES/VENDOR/2024/11/8/731001f1-f1c4-4f5f-849f-79a697cb0b72_390173.jpg",
+      locality: "Lavelle Road",
+      areaName: "West End",
+      costForTwo: 20000,
+      cuisines: ["Desserts", "Ice Cream", "Bakery"],
+      avgRating: 4.6,
+      totalRatingsString: "7K+ ratings",
+      veg: true,
+      sla: {
+        deliveryTime: 22,
+        lastMileTravel: 1.8,
+        slaString: "22 mins",
+      },
+      aggregatedDiscountInfoV3: {
+        header: "25% OFF",
+        subHeader: "UPTO ₹60",
+      },
+    },
+  },
+  {
+    info: {
+      id: "789012",
+      name: "Sushi Station",
+      cloudinaryImageId:
+        "RX_THUMBNAIL/IMAGES/VENDOR/2024/6/24/acfcaacc-edf0-4189-8264-d614d312c0ee_740457.JPG",
+      locality: "Indiranagar",
+      areaName: "Uptown",
+      costForTwo: 80000,
+      cuisines: ["Japanese", "Sushi", "Asian"],
+      avgRating: 4.8,
+      totalRatingsString: "5K+ ratings",
+      veg: false,
+      sla: {
+        deliveryTime: 40,
+        lastMileTravel: 5.2,
+        slaString: "40 mins",
+      },
+      aggregatedDiscountInfoV3: {
+        header: "15% OFF",
+        subHeader: "UPTO ₹150",
+      },
+    },
+  },
+];
+
+
 
 const Body = () =>{
   return(
     <div>
       <div className="search">Search</div>
+
+       {/* <div className="resto-container">
+        <RestoCard restoData ={restoObj[0]} />
+        <RestoCard restoData ={restoObj[1]} />
+        <RestoCard restoData ={restoObj[2]} />
+        <RestoCard restoData ={restoObj[3]} />
+        <RestoCard restoData ={restoObj[4]} />
+        <RestoCard restoData ={restoObj[5]} />
+        <RestoCard restoData ={restoObj[6]} />
+        <RestoCard restoData ={restoObj[7]} />
+      </div>  */}
+
       <div className="resto-container">
-        <RestoCard/>
-        <RestoCard/>
+        {restoObj.map((resto,index) => (
+          <RestoCard key={resto.info.id} restoData={resto} />
+        ))}
       </div>
     </div>
   );
 };
 
+const Footer = () =>{
+  return(
+  <div>
+    
+  </div>)
+
+}
 const ApplicationLayout = () => {
   return (
     <div className="application">
       <Header/>
       <Body/>
+      <Footer/>
     </div>
   );
 };
